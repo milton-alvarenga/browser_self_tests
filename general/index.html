@@ -1,5 +1,6 @@
 <html>
     <head>
+
         <style>
             .mb0 {
                 margin-bottom:0px;
@@ -17,19 +18,28 @@
         <ul>
             <li><span id="result_localstorage"></span> LocalStorage</li>
             <li><span id="result_websocket"></span> WebSocket</li>
+            <li><span id="result_webgl"></span> WebGL</li>
             <li><span id="result_worker"></span> Worker</li>
         </ul>
         <script>
             function el(id){
                 return document.getElementById(id);
             }
-            let el_result_localstorage = el('result_localstorage');
-            let el_result_websocket = el('result_websocket');
-            let el_result_worker = el('result_worker');
+            const el_result_localstorage = el('result_localstorage');
+            const el_result_websocket = el('result_websocket');
+            const el_result_webgl = el('result_webgl');
+            const el_result_worker = el('result_worker');
 
             el_result_localstorage.innerHTML = (window.window.localStorage) ? "[OK]" : "[NO]";
             el_result_websocket.innerHTML = (window.WebSocket) ? "[OK]" : "[NO]";
             el_result_worker.innerHTML = (window.Worker) ? "[OK]" : "[NO]";
+
+            try {
+                let canvas = document.createElement('canvas'); 
+                el_result_webgl.innerHTML = (!!window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))) ? "[OK]" : "[NO]";
+            } catch(e) {
+                el_result_webgl.innerHTML = "[NO]";
+            }
         </script>
     </body>
 </html>
